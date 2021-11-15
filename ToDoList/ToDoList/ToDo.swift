@@ -29,4 +29,11 @@ struct ToDo: Equatable {
         
         return [todo1, todo2, todo3]
     }
+    
+    static let dueDateFormater: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .short
+        return formatter
+    }()
 }
