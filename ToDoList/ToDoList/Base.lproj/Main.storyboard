@@ -30,7 +30,10 @@
                             <outlet property="delegate" destination="Rhm-TU-Ngg" id="W3h-VC-JRD"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="pdV-qV-9Op"/>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="pdV-qV-9Op">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="R03-LF-Aa5"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="azh-6V-JBL"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9bq-ML-uWW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
