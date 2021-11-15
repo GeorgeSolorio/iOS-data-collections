@@ -19,6 +19,8 @@ class ToDoTableViewController: UITableViewController {
         } else {
             todos = ToDo.loadSampleToDos()
         }
+        
+        navigationItem.leftBarButtonItem = editButtonItem
     }
 
     // MARK: - Table view data source
