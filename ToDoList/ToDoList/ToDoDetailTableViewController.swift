@@ -9,7 +9,6 @@ import UIKit
 
 class ToDoDetailTableViewController: UITableViewController {
 
-    
     @IBOutlet var titleTextField: UITextField!
     @IBOutlet var isCompleteButton: UIButton!
     @IBOutlet var dueDateLabel: UILabel!
@@ -21,10 +20,11 @@ class ToDoDetailTableViewController: UITableViewController {
     let dateLabelIndexPath = IndexPath(row: 0, section: 1)
     let datePickerIndexPath = IndexPath(row: 1, section: 1)
     let noteIndexPath = IndexPath(row: 0, section: 2)
+    var todo: ToDo?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dueDatePickerView.date = Date().addingTimeInterval(24 * 60 * 60)
+        updateView()
         updateDueDateLabel(date: dueDatePickerView.date)
         updateSaveButton()
     }
@@ -63,6 +63,38 @@ class ToDoDetailTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        guard segue.identifier == "saveUnwind" else { return }
+        
+        let title = titleTextField.text!
+        let isComplete = isCompleteButton.isSelected
+        let dueDate = dueDatePickerView.date
+        let notes = notesTextView.text
+        
+        if todo == nil {
+            todo = ToDo(title: title, isComplete: isComplete, dueDate: dueDate, notes: notes)
+        } else {
+            todo?.title = title
+            todo?.isComplete = isComplete
+            todo?.dueDate = dueDate
+            todo?.notes = notes
+        }
+    }
+    
+    func updateView() {
+        if let todo = todo {
+            navigationItem.title = "To-Do"
+            titleTextField.text = todo.title
+            isCompleteButton.isSelected = todo.isComplete
+            dueDatePickerView.date = todo.dueDate
+            notesTextView.text = todo.notes
+        } else {
+            dueDatePickerView.date = Date().addingTimeInterval(24 * 60 * 60)
+        }
     }
     
     @IBAction func textEditingChanged(_ sender: UITextField) {
